@@ -1,3 +1,7 @@
+# CI  Badge : 
+  [![Node.js CI](https://github.com/Vennicks/IntroUnitTests/actions/workflows/ci_test.yml/badge.svg?branch=main&event=push)](https://github.com/Vennicks/IntroUnitTests/actions/workflows/ci_test.yml)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
