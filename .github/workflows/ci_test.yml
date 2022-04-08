@@ -10,35 +10,12 @@ on:
     branches: [ main ]
 
 jobs:
-  install:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Save build folder
-        uses: actions/upload-artifact@v2
-        with:
-          name: build
-          if-no-files-found: error
-          path: build
-
-      - name: Cypress install
-        uses: cypress-io/github-action@v2
-        with:
-          # Disable running of tests within install job
-          runTests: false
-          build: yarn build
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
@@ -49,24 +26,4 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-  cypress-run:
-    runs-on: ubuntu-latest
-    container: cypress/browsers:node12.18.3-chrome87-ff82
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Download the build folders
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build
-
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
-        with:
-          # Specify Browser since container image is compile with Firefox
-          browser: firefox
-          build: yarn build
+    
